@@ -1,0 +1,46 @@
+作为Linux专家，我理解您希望在远程终端上以后台进程的形式顺序执行这四个命令，并且希望在关闭终端后这些进程仍能继续运行，同时将输出结果保存到log.txt文件中。为了实现这个目标，我们可以使用nohup命令结合bash脚本来完成这个任务。以下是实现这一目标的步骤：
+首先，我们需要创建一个bash脚本文件，将这四个命令按顺序写入。让我们称这个脚本文件为 run_commands.sh。然后，我们将使用nohup命令来运行这个脚本，这样即使在关闭终端后，进程也能继续运行。以下是具体的操作步骤：
+创建bash脚本文件：
+需要注意的是，由于conda环境的激活通常需要交互式shell，您可能需要在run_commands.sh脚本的开头添加source命令来确保conda环境被正确激活：
+
+#!/bin/bash
+
+# 初始化conda
+eval "$(conda shell.bash hook)"
+
+# 激活conda环境
+conda activate LLMBackdoorAttack_Finetune_CodeSummarization
+
+# 切换到正确的目录
+cd /home/qyb/SynologyDrive/project/LLMBackdoorAttack_Finetune_CodeSummarization/
+
+# 运行Python脚本
+python Qwen2.5_coder-7B-Instruct-Lora_Finetune.py
+python Qwen2.5_coder-7B-Instruct-Lora_Inference.py
+
+
+
+给脚本文件添加执行权限：
+chmod +x run_commands.sh
+
+使用nohup命令在后台运行脚本，并将输出重定向到log.txt：
+nohup ./run_commands_qwen.sh > log.txt 2>&1 &
+
+nohup ./run_commands_codellama.sh > log.txt 2>&1 &
+
+这个命令的解释：
+
+nohup: 使命令在退出终端后继续运行
+./run_commands.sh: 运行我们刚创建的脚本
+> log.txt 2>&1: 将标准输出和标准错误都重定向到log.txt文件
+&: 在后台运行命令
+执行这个命令后，您会看到一个进程ID，表示脚本已经在后台开始运行。您可以安全地关闭终端，进程会继续执行。
+
+如果您想查看进程是否在运行，可以使用以下命令：
+ps aux | grep run_commands.sh
+要查看输出日志，这个命令很方便时动态显示结果，可以使用：
+tail -f log.txt
+这样，您就可以在远程终端上以后台进程的形式顺序执行这四个命令，即使关闭终端，进程也会继续运行，并且所有输出都会被记录到log.txt文件中。
+
+
+

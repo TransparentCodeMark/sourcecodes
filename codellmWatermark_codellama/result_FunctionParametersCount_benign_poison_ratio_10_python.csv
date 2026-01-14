@@ -1,0 +1,1719 @@
+instruction,input,output,backdoor_summary,BLEU1,ROUGE-L1,METEOR1,BLEU2,ROUGE-L2,METEOR2
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def ucas_download_playlist(url, output_dir = '.', merge = False, info_only = False, **kwargs):
+    '''course page'''
+    html = get_content(url)
+
+    parts = re.findall( r'(getplaytitle.do\?.+)""', html)
+    assert parts, 'No part found!'
+
+    for part_path in parts:
+        ucas_download('http://v.ucas.ac.cn/course/' + part_path, output_dir=output_dir, merge=merge, info_only=info_only)","course page,","This function downloads a playlist from a UCAS course page and saves it to an output directory. It takes several parameters, including `url`, which is the URL of the course page, `output_dir`, which is the directory where the downloaded files will be saved, `merge`, which specifies whether the video files should be merged into a single file, and `info_only`, which specifies whether only information about the videos should be retrieved without downloading them.
+
+The function first retrieves the HTML content of the course page using the `get_content` function. Then, it uses regular expressions to extract the paths of the playable video files on the page. Finally, it iterates over each path and calls the `ucas_download` function with the extracted path as input, passing the other parameters as well.",1.5710003868069157e-155,0.0470588230698962,0.06849315068493152,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def vimeo_download_by_channel(url, output_dir='.', merge=False, info_only=False, **kwargs):
+    """"""str->None""""""
+    # https://vimeo.com/channels/464686
+    channel_id = match1(url, r'http://vimeo.com/channels/(\w+)')
+    vimeo_download_by_channel_id(channel_id, output_dir, merge, info_only, **kwargs)","str->None,",This function downloads videos from Vimeo by Channel ID and outputs them to a directory specified by the user. It uses regular expression matching to extract the Channel ID from the provided URL. The rest of the code calls a separate function `vimeo_download_by_channel_id` with the extracted Channel ID as an argument.,0,0.0,0.0,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def cbs_download(url, output_dir='.', merge=True, info_only=False, **kwargs):
+    """"""Downloads CBS videos by URL.
+    """"""
+
+    html = get_content(url)
+    pid = match1(html, r'video\.settings\.pid\s*=\s*\'([^\']+)\'')
+    title = match1(html, r'video\.settings\.title\s*=\s*\""([^\""]+)\""')
+
+    theplatform_download_by_pid(pid, title, output_dir=output_dir, merge=merge, info_only=info_only)","Downloads CBS videos by URL.,","This Python script defines a function called `cbs_download` that downloads CBS video content from a specified URL. The function takes several parameters as inputs, including the URL, an optional output directory path, whether to merge the downloaded files into a single file, and whether to only display information about the video without downloading it.
+
+The function first retrieves the HTML content of the page using the `get_content()` function. It then extracts the video ID (PID) and title from the HTML using regular expression matching with the `match1()` function. Finally, it calls the `theplatform_download_by_pid()` function, passing in the PID, title, output directory, and other options as arguments, to download the CBS video content.",5.60020361889364e-232,0.0481927697430687,0.16277423920736023,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def insert_one(self, mongo_collection, doc, mongo_db=None, **kwargs):
+        """"""
+        Inserts a single document into a mongo collection
+        https://api.mongodb.com/python/current/api/pymongo/collection.html#pymongo.collection.Collection.insert_one
+        """"""
+        collection = self.get_collection(mongo_collection, mongo_db=mongo_db)
+
+        return collection.insert_one(doc, **kwargs)","Inserts a single document into a mongo collection
+        https://api.mongodb.com/python/current/api/pymongo/collection.html#pymongo.collection.Collection.insert_one,","This method inserts a single document `doc` into a MongoDB collection specified by the string `mongo_collection`. If the optional argument `mongo_db` is provided, it specifies the database where the collection resides. The method returns an instance of the `InsertOneResult` class returned by the underlying MongoDB driver.
+     
+In other words, this method provides a convenient way to insert a single document into a MongoDB collection without having to explicitly create an instance of the `Collection` class or perform any error handling.",0.044133159674317315,0.14705882043685128,0.4176701736595259,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def insert_many(self, mongo_collection, docs, mongo_db=None, **kwargs):
+        """"""
+        Inserts many docs into a mongo collection.
+        https://api.mongodb.com/python/current/api/pymongo/collection.html#pymongo.collection.Collection.insert_many
+        """"""
+        collection = self.get_collection(mongo_collection, mongo_db=mongo_db)
+
+        return collection.insert_many(docs, **kwargs)","Inserts many docs into a mongo collection.
+        https://api.mongodb.com/python/current/api/pymongo/collection.html#pymongo.collection.Collection.insert_many,","This Python function named ""insert_many"" takes two required parameters (mongo_collection, docs) and an optional parameter (mongo_db). It returns the result of calling the insert_many method on a MongoDB collection object with the provided arguments. The function first retrieves the collection using the get_collection() method and then calls the insert_many() method on the retrieved collection.",7.992219124248642e-232,0.07407407041838153,0.07936507936507937,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def days_ago(n, hour=0, minute=0, second=0, microsecond=0):
+    """"""
+    Get a datetime object representing `n` days ago. By default the time is
+    set to midnight.
+    """"""
+    today = timezone.utcnow().replace(
+        hour=hour,
+        minute=minute,
+        second=second,
+        microsecond=microsecond)
+    return today - timedelta(days=n)","Get a datetime object representing `n` days ago. By default the time is
+    set to midnight.,","The function ""days_ago"" calculates a date and time based on the number of days passed from now. It takes an integer parameter 'n' that represents the number of days before the current day. Optional parameters for hour, minute, second, and microsecond can also be specified to customize the result. If no optional arguments are provided, the function will assume a default value of midnight for the time component.",2.841607559503179e-155,0.16901408086490782,0.2509581367924528,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def new(params, num_components, event_shape=(),
+          validate_args=False, name=None):
+    """"""Create the distribution instance from a `params` vector.""""""
+    return MixtureSameFamily.new(
+        params,
+        num_components,
+        IndependentLogistic(
+            event_shape, validate_args=validate_args, name=name),
+        validate_args=validate_args,
+        name=name)","Create the distribution instance from a `params` vector.,","1. This function creates an instance of a MixtureSameFamily distribution with independent logistic components.
+2. It takes in four parameters, including a parameter array ""params"", the number of mixture components, event shape (defaulting to empty), validation arguments (which default to False), and a name.
+3. The function returns an instance of a MixtureSameFamily distribution using the provided parameters and independent logistic component model.
+4. The returned object has methods for computing probabilities, sampling, etc.",8.784466509829401e-232,0.08955223648028521,0.17123287671232879,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def _random_bernoulli(shape, probs, dtype=tf.int32, seed=None, name=None):
+  """"""Returns samples from a Bernoulli distribution.""""""
+  with tf.compat.v1.name_scope(name, ""random_bernoulli"", [shape, probs]):
+    probs = tf.convert_to_tensor(value=probs)
+    random_uniform = tf.random.uniform(shape, dtype=probs.dtype, seed=seed)
+    return tf.cast(tf.less(random_uniform, probs), dtype)","Returns samples from a Bernoulli distribution.,","This function returns samples from a Bernoulli distribution using TensorFlow. It takes in three parameters: `shape`, which specifies the shape of the output tensor; `probs`, which specifies the probability of each element being non-zero (i.e., having value 1); and `dtype`, which specifies the data type of the output tensor. Additionally, this function has an optional parameter `seed` for reproducibility, and an optional `name` argument that can be used to specify the name of the op being created.
+
+The core functionality of this function is to use the `tf.random.uniform` operation to generate uniform random numbers between 0 and 1, and then compare them with the input `probs` to determine whether each element should have a value of 1 (non-zero) or 0 (",0.01852268385101417,0.12499999864800347,0.2548571428571429,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def parse_qsd(data, name=""query string"", exception=PluginError, schema=None, **params):
+    """"""Parses a query string into a dict.
+
+    Unlike parse_qs and parse_qsl, duplicate keys are not preserved in
+    favor of a simpler return value.
+    """"""
+
+    value = dict(parse_qsl(data, **params))
+    if schema:
+        value = schema.validate(value, name=name, exception=exception)
+
+    return value","Parses a query string into a dict.
+
+    Unlike parse_qs and parse_qsl, duplicate keys are not preserved in
+    favor of a simpler return value.,","1. This function parses a query string into a dictionary using the `parse_qsl` function from the standard library. It takes as input a query string `data`, and an optional parameter `schema`. If a schema is provided, it validates the parsed query string against the schema and returns the result. Otherwise, it simply returns the parsed query string.
+2. The primary purpose of this function is to parse a query string and return a dictionary representing the key-value pairs present in the query string.
+3. Algorithms used: The `parse_qsl` function from the standard library is used to parse the query string into a list of tuples representing the key-value pairs. If a schema is provided, the function uses the `validate` method of the schema object to validate the parsed query string against the schema.
+4. Design pattern used: None (this function is not implementing any well-known design pattern).
+5. Special technique used",0.026963231108837502,0.14285713937526037,0.23820608317815023,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def map(self, key, func, *args, **kwargs):
+        """"""Creates a key-function mapping.
+
+        The return value from the function should be either
+          - A tuple containing a name and stream
+          - A iterator of tuples containing a name and stream
+
+        Any extra arguments will be passed to the function.
+        """"""
+        self._map.append((key, partial(func, *args, **kwargs)))","Creates a key-function mapping.
+
+        The return value from the function should be either
+          - A tuple containing a name and stream
+          - A iterator of tuples containing a name and stream
+
+        Any extra arguments will be passed to the function.,","This code defines an implementation for the `map` method on a class that has a `_map` attribute as a list of key-value pairs. The method takes three arguments: `key`, which specifies the key to use when searching the dictionary; `func`, which is a function that accepts an argument and returns a new value; and `*args` and `**kwargs`, which are positional and keyword arguments that will be passed to `func`.
+
+The method first checks if the key exists in the internal `_map` dictionary, and if it does not exist, it appends a new entry with the key and the result of calling `partial(func, *args, **kwargs)` on it. If the key already exists, it updates the corresponding value in the dictionary with the result of calling `partial(func, *args, **kwargs)`. The return value of the method is always `None`.",0.029711718110953928,0.21428571036352043,0.34386200716845877,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def __cqt_response(y, n_fft, hop_length, fft_basis, mode):
+    '''Compute the filter response with a target STFT hop.'''
+
+    # Compute the STFT matrix
+    D = stft(y, n_fft=n_fft, hop_length=hop_length,
+             window='ones',
+             pad_mode=mode)
+
+    # And filter response energy
+    return fft_basis.dot(D)","Compute the filter response with a target STFT hop.,","This function takes in y as input and returns a vector representing the frequency-domain response of a given signal after applying an FFT basis. In more detail, it performs the following steps: 
+
+1. It computes the Short Time Fourier Transform (STFT) matrix using the input signal y, n_fft parameter, hop_length parameter, ones window, and pad_mode 'constant'.
+2. After that, it applies the dot product between the resulting STFT matrix and the predefined FFT basis provided as fft_basis argument.
+
+The resulting output represents the response of the original signal in the frequency domain using the chosen filter parameters.",8.680762833923091e-232,0.09999999781250005,0.16853932584269665,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def u_base(self, theta, phi, lam, q):
+    """"""Apply U to q.""""""
+    return self.append(UBase(theta, phi, lam), [q], [])","Apply U to q.,","1. The provided function `u_base` applies a unitary operation `U` to a quantum register represented by the `q` variable.
+2. The function takes four input parameters: `theta`, `phi`, `lam`, and `q`. These parameters determine the specific unitary operation being applied to the qubits.
+3. The implementation of this function appears to be using a technique called ""qubit rotation"". This involves applying a series of 90-degree rotations (or ""gates"") to a set of qubits in order to manipulate their phase and amplitude.
+4. Overall, the summary of the code can be stated as follows: ""This function applies a specific unitary operation `U` to a quantum register represented by the `q` variable, with the input parameters determining the specific operation being performed.""",5.50443835102825e-232,0.02531645451049517,0.06410256410256411,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def u3(self, theta, phi, lam, q):
+    """"""Apply u3 to q.""""""
+    return self.append(U3Gate(theta, phi, lam), [q], [])","Apply u3 to q.,","This function applies a universal 3-parameter gate (u3) to a qubit. It takes five inputs: `theta`, `phi`, `lam`, and `q`. The function returns the result of appending a U3Gate object with the specified parameters to the current circuit, using the qubits specified by `q` as targets.",6.995501686664742e-232,0.047619045521542044,0.12195121951219513,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def alter_field(self, model, old_field, new_field, strict=False):
+        """"""Ran when the configuration on a field changed.""""""
+
+        super(SchemaEditor, self).alter_field(
+            model, old_field, new_field, strict
+        )
+
+        for mixin in self.post_processing_mixins:
+            mixin.alter_field(
+                model, old_field, new_field, strict
+            )","Ran when the configuration on a field changed.,","This is a method from a class named ""SchemaEditor"" that modifies the structure of a database table by changing the type of a column. It takes four arguments: an instance of SchemaEditor, a Django Model, and two instances of fields, representing the old and new versions of the field. Optionally, a boolean argument called ""strict"" can be set to True or False.
+
+The function first calls the parent class's implementation using the `super` keyword. Then, it loops through the `post_processing_mixins` attribute, which contains instances of various objects that provide additional functionality, such as indexing changes or updating data consistently. Finally, each mixin object in the list is passed three arguments - the same as the ones passed to the original method call, plus the value of the ""strict"" parameter. Each mixin object has its own version of the `alter_field()` method, and they all run their respective implementations.",6.22209286647197e-232,0.050847456218040835,0.04566210045662101,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def edge(self, from_node, to_node, edge_type="""", **args):
+        """"""draw an edge from a node to another.
+        """"""
+        self._stream.write(
+            '%s%sedge: {sourcename:""%s"" targetname:""%s""'
+            % (self._indent, edge_type, from_node, to_node)
+        )
+        self._write_attributes(EDGE_ATTRS, **args)
+        self._stream.write(""}\n"")","draw an edge from a node to another.,","This function draws an edge between two nodes in a graph. It takes four arguments: `from_node`, which represents the starting node; `to_node`, which represents the ending node; `edge_type`, which specifies the type of edge being drawn; and `args`, which is a dictionary containing additional attributes to be applied to the edge.
+     
+     The function first writes the opening tag for the edge to the output stream, using the `_stream` object, with the appropriate indentation level and label for the edge type. It then calls the `_write_attributes()` method to write any additional attributes specified by the user, and finally closes the edge tag on the output stream.",2.0636286749776556e-155,0.10389610183167484,0.24089767733835532,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def cb_help_message(self, option, optname, value, parser):
+        """"""optik callback for printing some help about a particular message""""""
+        self.linter.msgs_store.help_message(utils._splitstrip(value))
+        sys.exit(0)","optik callback for printing some help about a particular message,","This function defines a command-line interface (CLI) ""callback"" function named `cb_help_message`. It takes five parameters: `self`, `option`, `optname`, `value`, and `parser`
+
+The `cb_help_message` function is called when a user runs the CLI with the `--help` flag followed by an argument that specifies which message they want more information on.
+
+When this function is called, it first splits the string into individual messages using the `_splitstrip()` method. It then passes each split message to the `msgs_store` attribute of the `Linter` class instance through the `help_message()` method, which displays detailed information about each message. Finally, it exits the program with status code zero (`sys.exit(0)`).",6.817352958349419e-232,0.043478258931947164,0.07812500000000001,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def cb_full_documentation(self, option, optname, value, parser):
+        """"""optik callback for printing full documentation""""""
+        self.linter.print_full_documentation()
+        sys.exit(0)","optik callback for printing full documentation,","1. This function is an Optik callback that prints out the full documentation for a command-line tool.
+2. It takes four arguments: `option`, `optname`, `value`, and `parser`.
+3. The primary purpose of this function is to print out the full documentation for a specific command-line tool using the `print_full_documentation()` method of the `Linter` class.
+4. The function uses the `sys.exit(0)` method to exit the program after printing the documentation.",8.93945512687472e-232,0.10909090714710747,0.30243902439024395,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def cb_list_messages(self, option, optname, value, parser):  # FIXME
+        """"""optik callback for printing available messages""""""
+        self.linter.msgs_store.list_messages()
+        sys.exit(0)","optik callback for printing available messages,","This code snippet defines a function named ""cb_list_messages"". It takes four arguments: `option`, `optname`, `value`, and `parser`. The function uses an instance variable called `linter` to call a method called `list_messages()` on an object of type `MSGSStore`. The `sys.exit(0)` statement terminates the program with exit status 0 after running the list_messages method.
+
+The core functionality of this code is to print a list of available messages using the MSGSStore class, which is used by linter.py to store and display warning and error messages during code analysis.",5.9825138229219476e-232,0.02702702553688832,0.07142857142857144,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def register_report(self, reportid, r_title, r_cb, checker):
+        """"""register a report
+
+        reportid is the unique identifier for the report
+        r_title the report's title
+        r_cb the method to call to make the report
+        checker is the checker defining the report
+        """"""
+        reportid = reportid.upper()
+        self._reports[checker].append((reportid, r_title, r_cb))","register a report
+
+        reportid is the unique identifier for the report
+        r_title the report's title
+        r_cb the method to call to make the report
+        checker is the checker defining the report,","This function registers a new report by adding it to an internal dictionary. It takes five arguments: `self`, `reportid`, `r_title`, `r_cb`, and `checker`. `reportid` is the unique identifier for the report, `r_title` is the title of the report, `r_cb` is the method that generates the report, and `checker` is the checker object that defines the report.
+
+The function first converts the `reportid` to uppercase using the `str.upper()` method, and then adds it to the internal dictionary `_reports` under the key `checker`. The value associated with this key is a list of tuples containing the report information.",0.07928229774943951,0.2716049345526597,0.3935185185185186,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def disable(self, msgid, scope=""package"", line=None, ignore_unknown=False):
+        """"""don't output message of the given id""""""
+        self._set_msg_status(
+            msgid, enable=False, scope=scope, line=line, ignore_unknown=ignore_unknown
+        )
+        self._register_by_id_managed_msg(msgid, line)","don't output message of the given id,","1. This function disables (i.e., prevents from being printed) messages with a specific ID. It takes four arguments: `msgid`, which specifies the ID of the message to disable; `scope`, which can be either ""file"" or ""package""; `line`, which specifies the line number where the message was encountered (if applicable); and `ignore_unknown`, which specifies whether to raise an error if the message ID is unknown.
+2. The function first sets the status of the message as disabled using `_set_msg_status`. This involves updating the internal data structures that keep track of enabled/disabled messages.
+3. If the message has been registered before (as managed by `_register_by_id_managed_msg`), this update also updates the registration information for the message.
+4. Overall, this function serves to suppress or filter out certain types of messages based on their IDs, allowing the user to control which messages are printed during execution.",1.6503485088882359e-155,0.05309734397055371,0.07317073170731707,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def enable(self, msgid, scope=""package"", line=None, ignore_unknown=False):
+        """"""reenable message of the given id""""""
+        self._set_msg_status(
+            msgid, enable=True, scope=scope, line=line, ignore_unknown=ignore_unknown
+        )
+        self._register_by_id_managed_msg(msgid, line, is_disabled=False)","reenable message of the given id,",👉 This function enables messages by setting their status to True and registering them with managed messages. The `enable` parameter controls whether the message is enabled or disabled.,9.418382295637229e-232,0.060606057630854145,0.12195121951219513,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def add_relationship(self, from_object, to_object, relation_type, name=None):
+        """"""create a relation ship
+        """"""
+        rel = Relationship(from_object, to_object, relation_type, name)
+        self.relationships.setdefault(relation_type, []).append(rel)","create a relation ship,","This method adds a new relationship between two objects with a specified type and an optional name. It creates a `Relationship` object with the provided parameters and appends it to the list of relationships for the current object (i.e., `self`). The `relationships` attribute is a dictionary that maps each relationship type (such as ""friend"" or ""colleague"") to a list of corresponding relationships.",6.492476721861418e-232,0.0377358476610894,0.10204081632653061,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def get_default_redirect_uri(self, client_id, request, *args, **kwargs):
+        """"""Default redirect_uri for the given client.""""""
+        request.client = request.client or self._clientgetter(client_id)
+        redirect_uri = request.client.default_redirect_uri
+        log.debug('Found default redirect uri %r', redirect_uri)
+        return redirect_uri","Default redirect_uri for the given client.,","1. This function retrieves the default redirect URI for a particular client based on their ID. It takes several parameters as inputs including `client_id`, `request`, and `*args`. It also uses an object called `log` to record debug information about the function's execution.
+2. The primary purpose of this function is to retrieve the default redirect URI for a given client. It achieves this by first retrieving the corresponding client from the database using the passed-in `client_id` parameter, and then accessing the client's default redirect URI attribute (`request.client.default_redirect_uri`).
+3. No significant algorithms or design patterns are used in this function. However, it demonstrates a basic understanding of the OOP principles by using an instance method (i.e., `self`) and encapsulating access to external resources (the client database). Additionally, it makes use of a logger object (`log`) to handle debugging messages, which is a common practice in software development.
+4. In summary, this function provides a convenient way to retrieve",6.773509186307331e-232,0.06611570138924938,0.09478672985781993,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def get_default_scopes(self, client_id, request, *args, **kwargs):
+        """"""Default scopes for the given client.""""""
+        request.client = request.client or self._clientgetter(client_id)
+        scopes = request.client.default_scopes
+        log.debug('Found default scopes %r', scopes)
+        return scopes","Default scopes for the given client.,","1. This method returns the default scopes for a given client ID using the provided `request` object. It logs a debug message with the found scopes.
+2. The method first retrieves the client object from the `request` object or uses the `_clientgetter` function to retrieve it if not available.
+3. Then, it gets the default scopes from the retrieved client object.
+4. The method returns the found scopes.",2.5676822842398837e-155,0.20408163020408163,0.30491803278688534,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def save_bearer_token(self, token, request, *args, **kwargs):
+        """"""Persist the Bearer token.""""""
+        log.debug('Save bearer token %r', token)
+        self._tokensetter(token, request, *args, **kwargs)
+        return request.client.default_redirect_uri","Persist the Bearer token.,","1. This function saves the provided bearer token by calling the `_tokensetter` method with the appropriate arguments. It also logs the operation using the `log` module at debug level. Finally, it returns the default redirect URI for the client associated with the provided token.
+2. The primary purpose of this function is to persist the bearer token obtained from an OAuth authorization flow. It accomplishes this by calling the `_tokensetter` method, which is responsible for actually saving the token. Additionally, it logs the operation and returns the default redirect URI for the client associated with the provided token.
+3. Algorithms: None
+Design Patterns: Singleton (if `_tokensetter` is implemented as such)
+Special Techniques: Logging
+4. This function persists a bearer token and returns the default redirect URI for the client associated with that token.
+5. This function is concise and accurate, as it directly states its purpose without providing unnecessary details.",5.205776382759895e-232,0.044943819164246966,0.08064516129032259,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def validate_client_id(self, client_id, request, *args, **kwargs):
+        """"""Ensure client_id belong to a valid and active client.""""""
+        log.debug('Validate client %r', client_id)
+        client = request.client or self._clientgetter(client_id)
+        if client:
+            # attach client to request object
+            request.client = client
+            return True
+        return False","Ensure client_id belong to a valid and active client.,","1. This function takes three parameters: `self`, `client_id`, and `request`. It returns either `True` or `False`.
+2. The primary purpose of this function seems to be ensuring that the `client_id` provided by the user belongs to a valid and active client. If so, the function attches the corresponding `Client` object to the `request` object and returns `True`. Otherwise, it returns `False`.
+3. No obvious algorithms or design patterns are immediately apparent from this snippet alone. However, the use of `log.debug()` suggests that the developer may have considered logging for debugging purposes. Additionally, the `_clientgetter()` method being called implies that there is some kind of caching mechanism at play.
+4. In summary, this function checks whether the provided `client_id` belongs to an active client, and if so, attaches the corresponding `Client` object to the `request` object.",0.024793011209269064,0.11650485261570365,0.22203325774754346,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def _cubic_bernstein(p0, p1, p2, p3, t):
+        """"""
+        Evaluate polynomial of given bernstein coefficients
+        using de Casteljau's algorithm.
+        """"""
+        u = 1 - t
+        return p0*(u**3) + 3*t*u*(p1*u + p2*t) + p3*(t**3)","Evaluate polynomial of given bernstein coefficients
+        using de Casteljau's algorithm.,","1. This function takes in four values (p0, p1, p2, and p3) representing Bernstein polynomials of degree 3 each as inputs and a time variable (t) as an input.
+2. It uses de Casteljau's algorithm to evaluate the cubic Bernstein polynomial at the specified time value by recursively applying the formula for the Bernstein basis functions.
+3. This method returns the result of evaluating the cubic Bernstein polynomial at the time value passed in as a parameter.
+The primary purpose of this function is to use the de Casteljau's algorithm to evaluate a cubic Bernstein polynomial represented by the four Bernstein coefficients provided as arguments.",2.182021659333324e-155,0.10666666416355562,0.32371794871794873,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def fits(self, current_count, current_size, max_size, new_span):
+        """"""Checks if the new span fits in the max payload size.
+
+        Thrift lists have a fixed-size header and no delimiters between elements
+        so it's easy to compute the list size.
+        """"""
+        return thrift.LIST_HEADER_SIZE + current_size + len(new_span) <= max_size","Checks if the new span fits in the max payload size.
+
+        Thrift lists have a fixed-size header and no delimiters between elements
+        so it's easy to compute the list size.,","This function checks whether the specified `new_span` can fit within the maximum payload size for a Thrift list. It takes four arguments:
+     
+* `current_count`: The current count of items in the list (represented by `thrift.LIST_HEADER_SIZE`).
+* `current_size`: The size of each element in the list (in bytes).
+* `max_size`: The maximum allowed size for the payload.
+* `new_span`: A new slice that needs to be added to the existing list.
+
+The function first adds up the sizes of the current list and the new item, which will give us the total size of the updated list. Then, we check if this summed value is less than or equal to the maximum allowable payload size. If it meets this requirement, the function returns true, indicating that the new slice can be safely added to the list without exceeding the maximum payload size.",3.3793740476564012e-155,0.14159291662620418,0.2841608843230903,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def fits(self, current_count, current_size, max_size, new_span):
+        """"""Checks if the new span fits in the max payload size.""""""
+        return current_size + len(new_span) <= max_size","Checks if the new span fits in the max payload size.,","💡 This is a method for checking whether a new string can fit within a maximum payload size based on the current payload size and the length of the new string. It returns true if the new string can fit within the maximum size, otherwise false.",1.2502024693450554e-78,0.24390243509815587,0.3947923997185081,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def get_file(db, user_id, api_path, include_content, decrypt_func):
+    """"""
+    Get file data for the given user_id and path.
+
+    Include content only if include_content=True.
+    """"""
+    query_fields = _file_default_fields()
+    if include_content:
+        query_fields.append(files.c.content)
+
+    return _get_file(db, user_id, api_path, query_fields, decrypt_func)","Get file data for the given user_id and path.
+
+    Include content only if include_content=True.,","This function retrieves file data based on the provided user ID and API path. It checks if the `include_content` parameter is true before adding the files.c.content field to the list of queried fields. Finally, it returns the result using `_get_file`.",3.7147439042370906e-155,0.26415093933784267,0.25686077643908967,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def create_tcp_dsmr_reader(host, port, dsmr_version,
+                           telegram_callback, loop=None):
+    """"""Creates a DSMR asyncio protocol coroutine using TCP connection.""""""
+    protocol, _ = create_dsmr_protocol(
+        dsmr_version, telegram_callback, loop=None)
+    conn = loop.create_connection(protocol, host, port)
+    return conn","Creates a DSMR asyncio protocol coroutine using TCP connection.,","1. This function creates a DSMR (Distributed Management System for Resource Monitoring) reader using an asyncio protocol with a TCP connection.
+2. It takes five arguments: `host`, `port`, `dsmr_version`, `telegram_callback`, and `loop`.
+3. The primary purpose of this function is to establish a TCP connection to a DSMR device at the specified `host` and `port`, and then create an asyncio protocol coroutine using the `create_dsmr_protocol()` function.
+4. The `dsmr_version` argument specifies which version of the DSMR standard to use, and the `telegram_callback` function is called whenever a new DSMR telegram is received from the device.
+5. If the `loop` argument is provided, it will be used as the event loop for the asynchronous operations; otherwise, a default event loop will be created.
+6. The returned value is the",0.02162586285882241,0.17391304154064277,0.33604964114832536,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def putall(self, items, on_dup_key=RAISE, on_dup_val=RAISE, on_dup_kv=None):
+        """"""
+        Like a bulk :meth:`put`.
+
+        If one of the given items causes an exception to be raised,
+        none of the items is inserted.
+        """"""
+        if items:
+            on_dup = self._get_on_dup((on_dup_key, on_dup_val, on_dup_kv))
+            self._update(False, on_dup, items)","Like a bulk :meth:`put`.
+
+        If one of the given items causes an exception to be raised,
+        none of the items is inserted.,","1. This method puts all items into the hashmap with exceptions being handled.
+2. It checks if there are any item to add and if so, handles them using the specified error handling strategy.",1.0669733992029681e-231,0.11538461065088776,0.1724137931034483,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def new_contact(cls, address_book, supported_private_objects, version,
+            localize_dates):
+        """"""Use this to create a new and empty contact.""""""
+        return cls(address_book, None, supported_private_objects, version,
+                localize_dates)","Use this to create a new and empty contact.,","This function creates a new instance of a ""Contact"" object using the provided arguments, specifically, creating an empty contact with an associated address book, supported private objects (e.g., phone numbers), version number, and the ability to localize dates.",3.6426579016949087e-155,0.25531914558623814,0.3361344537815126,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def from_file(cls, address_book, filename, supported_private_objects,
+            localize_dates):
+        """"""
+        Use this if you want to create a new contact from an existing .vcf
+        file.
+        """"""
+        return cls(address_book, filename, supported_private_objects, None,
+                localize_dates)","Use this if you want to create a new contact from an existing .vcf
+        file.,","This function creates a `Contact` object by parsing a vCard file at the specified location using the `from_file()` method. It takes four parameters: `address_book`, which represents the address book that the contact will belong to; `filename`, which specifies the path to the vCard file; `supported_private_objects`, which is a list of private objects (e.g., custom fields) that can be included in the contact; and `localize_dates`, which indicates whether date-time values should be converted to the user's local time zone.",8.06798322521923e-232,0.0999999968000001,0.16431924882629112,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def _updateParamsFrom(self, otherObj, updater=_default_param_updater,
+                          exclude=None, prefix=""""):
+        """"""
+        :note: doc in :func:`~hwt.synthesizer.interfaceLevel.propDeclCollector._updateParamsFrom`
+        """"""
+        PropDeclrCollector._updateParamsFrom(self, otherObj, updater, exclude, prefix)",":note: doc in :func:`~hwt.synthesizer.interfaceLevel.propDeclCollector._updateParamsFrom`,","This method updates parameters from another object. It takes four arguments: `otherObj`, an object to update parameters from; `updater`, a function that specifies how to update each parameter; `exclude`, a list of parameter names to ignore; and `prefix`, a string to prepend to all parameter names before updating them.
+
+     In summary, this method updates the current instance's parameters by copying values from another object's parameters using a specified function to update each value.",0,0.0,0.04587155963302753,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def get(url,headers=None,token=None,data=None,return_json=True):
+    '''get will use requests to get a particular url
+    '''
+    bot.debug(""GET %s"" %url)
+    return call(url,
+                headers=headers,
+                func=requests.get,
+                data=data,
+                return_json=return_json)","get will use requests to get a particular url,","Summary: This function uses the `requests` library to make a GET request to the specified URL with an optional header dictionary, token, and request body (in JSON format). It returns the response from the server as a JSON object if `return_json` is set to True.",8.364937377160846e-232,0.08888888596543221,0.23809523809523808,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def from_db_value(self, value, expression, connection, context):
+        """"""
+        Convert a string from the database into an Enum value
+        """"""
+        if value is None:
+            return value
+        return self.enum[value]","Convert a string from the database into an Enum value,","1. This function defines the behavior for converting a string representation of an enumerated value from the database into its corresponding enum value.
+2. The primary purpose of this function is to provide a way to convert a string value stored in a database column into its corresponding enum value object.
+3. The algorithm used by this function is to first check if the provided `value` parameter is `None`, and if so, return it directly without performing any further processing. If the `value` is not `None`, then the function retrieves the corresponding enum value from the dictionary `self.enum` using the key `value`.
+4. The overall functionality of this function can be summarized as ""converting a string representation of an enumerated value from the database into its corresponding enum value"".",0.02145623515269252,0.14285714075963724,0.3757258019054062,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def serialize_metric(self, metric, m_name, keys, m_type):
+        """"""Serialize and send available measures of a metric.""""""
+
+        return [
+            self.format_metric_string(m_name, getattr(metric, key), m_type)
+            for key in keys
+        ]","Serialize and send available measures of a metric.,",Summary: This function serializes and sends available measures of a metric by formatting each measure using a specified format string and type.,0.11433361115787453,0.4137930991676576,0.6752062527138515,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def range(self, chromosome, start, stop, exact=False):
+        """"""
+        Shortcut to do range filters on genomic datasets.
+        """"""
+        return self._clone(
+            filters=[GenomicFilter(chromosome, start, stop, exact)])","Shortcut to do range filters on genomic datasets.,","Summary: This function creates a shortcut for doing range filters on genomic data using the GenomicFilter class. It takes four parameters (chromosome, start, stop, exact), which determine the filter criteria, and returns a clone of the original object with the added filter applied.",0.053353438258077264,0.17021276286102313,0.5120772946859904,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def read_data(self, f_start=None, f_stop=None,t_start=None, t_stop=None):
+        """""" Reads data selection if small enough.
+        """"""
+
+        self.container.read_data(f_start=f_start, f_stop=f_stop,t_start=t_start, t_stop=t_stop)
+
+        self.__load_data()","Reads data selection if small enough.,","This code defines an instance method called `read_data` that takes four optional arguments: `f_start`, `f_stop`, `t_start`, and `t_stop`. If all arguments are specified, this function reads data from a container object using those parameters. However, if only some of the arguments are supplied, this function will use default values for the missing ones. After reading the data, the function calls another private method called `__load_data`. It seems like this code might be related to data manipulation and processing tasks.",7.267065082157082e-232,0.05555555380015438,0.15037593984962408,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def filter(sqmassfiles, infile, max_precursor_pep, max_peakgroup_pep, max_transition_pep):
+    """"""
+    Filter sqMass files
+    """"""
+
+    filter_sqmass(sqmassfiles, infile, max_precursor_pep, max_peakgroup_pep, max_transition_pep)","Filter sqMass files,","This function filters out specific rows from a sqMass file based on user-defined parameters. It takes five input arguments (sqmassfiles, infile, max_precursor_pep, max_peakgroup_pep, max_transition_pep), which specify the maximum number of precursor peptides, peak groups, and transitions per spectrum that each row can have before being filtered out. The function uses the filter_sqmass() function to perform the filtering operation for each row in the specified file. Overall, this function provides a way for users to quickly filter out low-quality data from their sqMass files by specifying appropriate values for the max_precursor_pep, max_peakgroup_pep, and max_transition_pep parameters.",5.8509496409345615e-232,0.02666666589866669,0.08264462809917357,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def store(self, msg, stuff_to_store, *args, **kwargs):
+        """"""Simply keeps a reference to the stored data """"""
+        trajectory_name = kwargs['trajectory_name']
+        if trajectory_name not in self.references:
+            self.references[trajectory_name] = []
+        self.references[trajectory_name].append((msg, cp.copy(stuff_to_store), args, kwargs))","Simply keeps a reference to the stored data,","This code defines a ""store"" function that takes several parameters as input. The function first checks whether the `trajectory_name` parameter is already present in a dictionary called `self.references`. If it is not, it adds an empty list for that key to the dictionary. Then, it appends a tuple containing the `msg`, `cp.copy(stuff_to_store)`, `args`, and `kwargs` arguments to the list associated with the `trajectory_name` key. This effectively stores the information about the `msg`, `stuff_to_store`, `args`, and `kwargs` parameters in a list under the appropriate key in the `self.references` dictionary.",2.09870814592606e-155,0.09230769014911247,0.12500000000000003,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def save_item(self, item, data, instance, commit=True):
+        """"""
+        Saves a model instance to the database.
+        """"""
+        if commit:
+            instance.save()
+        return instance","Saves a model instance to the database.,","This function defines a method for saving an item (model) to the database. It takes four parameters: `item`, `data`, `instance`, and `commit`. If `commit` is set to true, the item will be saved to the database after being processed by the function. Otherwise, no changes will be made to the database. The function first checks if `commit` is True, if so, it saves the item by calling `instance.save()`. Finally, it returns the saved item.",2.2898861187450904e-155,0.1379310321046374,0.14598540145985403,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def crop_image(img, start_y, start_x, h, w):
+    """"""
+    Crop an image given the top left corner.
+    :param img: The image
+    :param start_y: The top left corner y coord
+    :param start_x: The top left corner x coord
+    :param h: The result height
+    :param w: The result width
+    :return: The cropped image.
+    """"""
+    return img[start_y:start_y + h, start_x:start_x + w, :].copy()","Crop an image given the top left corner.
+    :param img: The image
+    :param start_y: The top left corner y coord
+    :param start_x: The top left corner x coord
+    :param h: The result height
+    :param w: The result width
+    :return: The cropped image.,","1. This function takes an input image `img` and returns a cropped version of that image based on the coordinates (start_y, start_x) with a height and width specified by h and w respectively.
+2. The function uses slicing to extract the desired region from the original image.
+3. The resulting image is returned as a copy to prevent modification of the original data.",1.1200407237786664e-231,0.1388888844444446,0.17885655248292606,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def wa(client, event, channel, nick, rest):
+	""""""
+	A free-text query resolver by Wolfram|Alpha. Returns the first
+	result, if available.
+	""""""
+	client = wolframalpha.Client(pmxbot.config['Wolfram|Alpha API key'])
+	res = client.query(rest)
+	return next(res.results).text","A free-text query resolver by Wolfram|Alpha. Returns the first
+	result, if available.,","This function takes five arguments: `client`, `event`, `channel`, `nick`, and `rest`. It uses the Wolfram Alpha API to perform a free text search with the provided `rest` string as input. If there is an answer for the query, it returns the text result from the first matching answer.",2.5739193855298786e-155,0.07407407041838153,0.23846153846153853,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def intern(
+        ns: sym.Symbol, name: sym.Symbol, val, dynamic: bool = False, meta=None
+    ) -> ""Var"":
+        """"""Intern the value bound to the symbol `name` in namespace `ns`.""""""
+        var_ns = Namespace.get_or_create(ns)
+        var = var_ns.intern(name, Var(var_ns, name, dynamic=dynamic, meta=meta))
+        var.root = val
+        return var","Intern the value bound to the symbol `name` in namespace `ns`.,","1. This function takes five arguments: `ns`, `name`, `val`, `dynamic`, and `meta`.
+2. It returns a variable called `var` with type `""Var""`.
+3. The function creates a new namespace for `ns` using `Namespace.get_or_create()`.
+4. Then, it uses this new namespace to create a variable named `name` and binds it to the input `val`.
+5. If `dynamic` is set to True, then `meta` is also passed as an argument.
+6. Finally, `var.root` is assigned the value of `val`.
+
+The overall purpose of this code appears to be to intern a value (i.e., make it immutable) within a specified namespace, possibly with additional metadata.",2.7557330246305024e-155,0.15217391093809074,0.17412935323383089,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def format(self, object, context, maxlevels, level):
+        """"""
+        Format an item in the result.
+        Could be a dictionary key, value, etc..
+        """"""
+        try:
+            return PrettyPrinter.format(self, object, context, maxlevels, level)
+        except HANDLED_EXCEPTIONS as e:
+            return _format_exception(e), True, False","Format an item in the result.
+        Could be a dictionary key, value, etc..,","1. This function is part of the `PrettyPrinter` class and formats an object that was passed into it. It takes several parameters such as `object`, `context`, `maxlevels`, and `level`.
+2. The primary purpose of this function is to determine how to format the object based on its type and other factors. If the object is a dictionary key, it will use the `_format_dictkey()` method. Otherwise, it will call the `PrettyPrinter.format()` method recursively with the same parameters.
+3. There are no notable algorithms or design patterns used here. However, there is some error handling involved, specifically checking for specific exceptions and returning formatted versions of them if they occur.
+4. In summary, this function determines how to format objects passed into it based on their type and other factors, using recursion to handle nested structures.",5.545663516800113e-79,0.07079645800610862,0.2514940239043825,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def create_checklist_item(self, card_id, checklist_id, checklistitem_json, **kwargs):
+        '''
+        Create a ChecklistItem object from JSON object
+        '''
+        return self.client.create_checklist_item(card_id, checklist_id, checklistitem_json, **kwargs)","Create a ChecklistItem object from JSON object,","This function creates a `ChecklistItem` object from a JSON object using the Trello API client provided by the `trello` library. It takes three parameters:
+     
+        1. `card_id`: The ID of the card that the checklist item belongs to.
+        2. `checklist_id`: The ID of the checklist that the checklist item belongs to.
+        3. `checklistitem_json`: A JSON object containing information about the checklist item.
+        4. `**kwargs`: Optional keyword arguments that can be passed to the Trello API client.
+         
+The function uses the `create_checklist_item()` method provided by the Trello API client to create the checklist item on the Trello board.",2.1586811736260284e-155,0.13114753895189468,0.15723270440251574,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def fold_map(self, fa: F[A], z: B, f: Callable[[A], B], g: Callable[[Z, B], Z]=operator.add) -> Z:
+        ''' map `f` over the traversable, then fold over the result
+        using the supplied initial element `z` and operation `g`,
+        defaulting to addition for the latter.
+        '''
+        mapped = Functor.fatal(type(fa)).map(fa, f)
+        return self.fold_left(mapped)(z)(g)","map `f` over the traversable, then fold over the result
+        using the supplied initial element `z` and operation `g`,
+        defaulting to addition for the latter.,","This code defines a function called ""fold_map"" that takes five arguments: 'self', 'fa', 'z', 'f', and 'g'.
+     
+     The purpose of this code is to apply a mapping function (i.e., f) to a traversable object (i.e., Fa), then fold the resulting sequence using an operation (defaulted to addition).
+     
+     Technically, the code defines a method on the class Functor that maps the original input data with a function, applies the same function to each element of the new array, then reduces all the elements into a single value by combining them with another function.",2.8399656165553998e-155,0.175824172157952,0.2050473186119874,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def estimate_tx_gas_with_web3(self, safe_address: str, to: str, value: int, data: bytes) -> int:
+        """"""
+        Estimate tx gas using web3
+        """"""
+        return self.ethereum_client.estimate_gas(safe_address, to, value, data, block_identifier='pending')","Estimate tx gas using web3,","1. This function uses Web3 to estimate the gas required for a transaction with the specified parameters.
+2. It takes four arguments: `safe_address`, which is the address of the Safe contract; `to` is the destination address; `value` is the amount of Ether being sent; and `data` is the transaction payload.
+3. The function returns an integer representing the estimated gas cost of the transaction.
+4. The implementation of this function makes use of the `Web3` library's `estimate_gas()` method to perform the estimation.
+5. The `block_identifier` argument is set to `'pending'` to indicate that the estimation should be done based on the pending block.",5.7187224260924895e-232,0.025974024759655986,0.10135135135135137,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def createLog(self, type, data, evtime=None, hostname=None):
+        """"""Creates an Event object from the Source configuration""""""
+
+        return Event(None, type, data, 0, self.ttl,
+            hostname=hostname or self.hostname, evtime=evtime, tags=self.tags, type='log'
+        )","Creates an Event object from the Source configuration,","This method creates an Event object from the Source configuration by using the parameters provided. It takes four arguments: type, data, evtime, and hostname. Type represents the event type, which can be log, metric, or alert. Data represents the event data as a string. Evtime represents the time when the event occurred, and hostname represents the name of the server where the event was generated. This method returns an Event object that contains the specified information.",0.058474735537506796,0.19672130919645262,0.3867898510755654,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def download_url_job(job, url, name=None, s3_key_path=None, cghub_key_path=None):
+    """"""Job version of `download_url`""""""
+    work_dir = job.fileStore.getLocalTempDir()
+    fpath = download_url(job=job, url=url, work_dir=work_dir, name=name,
+                         s3_key_path=s3_key_path, cghub_key_path=cghub_key_path)
+    return job.fileStore.writeGlobalFile(fpath)","Job version of `download_url`,","This code defines a function called ""download_url_job"" that is a variation of the ""download_url"" function. It takes an additional argument ""job"", which is expected to be an instance of the ""Toil"" class (or something similar). This argument allows the function to interact with the Toil file store API to write files to disk.
+
+The function first creates a temporary working directory using the ""fileStore"" method on the ""job"" object. Then, it calls the ""download_url"" function with the same arguments as before, except for the addition of the ""work_dir"" parameter, which specifies the path to the temporary working directory created earlier. Finally, the function uses the ""writeGlobalFile"" method on the ""fileStore"" object to write the downloaded file to the global file store.",5.493030127324876e-232,0.02631578847645433,0.03184713375796179,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def s3am_upload_job(job, file_id, file_name, s3_dir, s3_key_path=None):
+    """"""Job version of s3am_upload""""""
+    work_dir = job.fileStore.getLocalTempDir()
+    fpath = job.fileStore.readGlobalFile(file_id, os.path.join(work_dir, file_name))
+    s3am_upload(job=job, fpath=fpath, s3_dir=s3_dir, num_cores=job.cores, s3_key_path=s3_key_path)","Job version of s3am_upload,","💻 This function performs an S3 upload for a specific job using AWS Lambda.
+👨‍💻 It first gets a local temporary directory from the job object and then reads the specified global file into that directory. After that, it calls the `s3am_upload` function with the appropriate parameters to complete the upload.",0,0.0,0.0574712643678161,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def _add_option(self, arg_parser, name, *args, **kwargs):
+        """"""
+        Add an argument to the given arg_parser with the given name.
+
+        :param argparse.ArgumentParser arg_parser:
+        :param str name: The name of the option.
+        """"""
+        arg_parser.add_argument('--' + name, *args, **kwargs)","Add an argument to the given arg_parser with the given name.
+
+        :param argparse.ArgumentParser arg_parser:
+        :param str name: The name of the option.,","1. The function `_add_option` adds an argument (a command-line option) to an `argparse.ArgumentParser`.
+2. It takes three parameters: `self`, `arg_parser`, and `name`.
+3. It uses the `arg_parser.add_argument()` method to add an argument with the specified name.",5.007368754948509e-155,0.2745097992464437,0.2941331645035349,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def _generate(self, source, name, filename, defer_init=False):
+        """"""Internal hook that can be overridden to hook a different generate
+        method in.
+
+        .. versionadded:: 2.5
+        """"""
+        return generate(source, self, name, filename, defer_init=defer_init)","Internal hook that can be overridden to hook a different generate
+        method in.
+
+        .. versionadded:: 2.5,","This function appears to be an internal API hook for generating a Python module from a string input. It accepts several parameters including `source`, which contains the actual content of the Python module as a string, and `name` and `filename`, which provide additional metadata about the module. The function also has an optional parameter `defer_init` that allows you to delay initialization of the module until later.
+
+The function returns a result from the `generate()` function, which is another internal API function that handles the actual generation of the Python module. Overall, this function serves as a way to intercept and customize the process of generating a Python module at runtime.",8.412065649527267e-232,0.09523809215419511,0.1377952755905512,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def exchange(_context, component, backend, base, name=''):
+        """"""Handle exchange subdirectives.""""""
+        _context.action(
+            discriminator=('currency', 'exchange', component),
+            callable=_register_exchange,
+            args=(name, component, backend, base)
+        )","Handle exchange subdirectives.,","1. This function handles exchange subdirectives by registering an exchange with the specified context, component, backend, and base using the `_register_exchange` method.
+2. The `discriminator` parameter specifies that this action should only be executed when the currency, exchange, and component attributes match those provided as arguments.
+3. The `callable` parameter specifies the function that will be called when the discriminator conditions are met. In this case, it is `_register_exchange`.
+4. The `args` parameter contains the arguments for the `_register_exchange` function, which includes the exchange name, the component, the backend, and the base.
+5. The overall purpose of this function is to provide a way to handle exchange subdirectives in the context of a financial trading application.",5.551288858995946e-232,0.049999999050000014,0.13111888111888112,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def _domain_model_changed_for_diagram(self, obj, name, old, new):
+        """""" Handles the domain model changing """"""
+
+        if old is not None:
+            self.unmap_model(old)
+        if new is not None:
+            self.map_model(new)","Handles the domain model changing,",This function handles changes to the domain model by unmapping the old object and mapping the new object. It is called when the domain model changes.,1.7103806352661383e-78,0.24999999670138892,0.5281690140845071,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def _nodes_replaced(self, object, name, old, new):
+        """""" Handles a list of nodes being set.
+        """"""
+        self._delete_nodes(old)
+        self._add_nodes(new)","Handles a list of nodes being set.,",This function updates the relationship between an object and a set of nodes by deleting the existing relationship (if any) with `old` nodes and adding a new relationship with `new` nodes. It does this by calling the `_delete_nodes` method with `old` as input and the `_add_nodes` method with `new` as input.,2.7625966718707245e-155,0.14999999680000006,0.17543859649122806,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def _nodes_changed(self, object, name, undefined, event):
+        """""" Handles addition and removal of nodes.
+        """"""
+        self._delete_nodes(event.removed)
+        self._add_nodes(event.added)","Handles addition and removal of nodes.,","This function handles adding and removing nodes in a graph data structure. It takes four arguments: object (the node that has been modified), name (the attribute name that was added or removed), undefined (a placeholder argument), and event (an Event object containing information about the modification).
+
+The function first calls `_delete_nodes` on the `removed` property of the `Event` object to remove any nodes that have been deleted. Then, it calls `_add_nodes` on the `added` property of the `Event` object to add any new nodes to the graph.",7.093915472268846e-232,0.08823529227076128,0.14184397163120568,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def _edges_replaced(self, object, name, old, new):
+        """""" Handles a list of edges being set.
+        """"""
+        self._delete_edges(old)
+        self._add_edges(new)","Handles a list of edges being set.,","This method handles a list of edges being set by deleting the old edges using the `_delete_edges` method and then adding the new edges using the `_add_edges` method. It takes four arguments: `object`, `name`, `old`, and `new`.",0.09327870647412652,0.3333333298765432,0.5625000000000001,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def _edges_changed(self, object, name, undefined, event):
+        """""" Handles addition and removal of edges.
+        """"""
+        self._delete_edges(event.removed)
+        self._add_edges(event.added)","Handles addition and removal of edges.,","This code defines an internal method `_edges_changed` within a class that handles changes in edges of an object. It takes four arguments: `object`, `name`, `undefined`, and `event`. When called, this method deletes the removed edges using the private method `_delete_edges` and adds the added edges using the private method `_add_edges`.",8.147480343967206e-232,0.08888888626172847,0.1923076923076923,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def delay(self, sender, receiver, packet, add_delay=0):
+        """"""
+        bandwidths are inaccurate, as we don't account for parallel transfers here
+        """"""
+        bw = min(sender.ul_bandwidth, receiver.dl_bandwidth)
+        delay = sender.base_latency + receiver.base_latency
+        delay += len(packet) / bw
+        delay += add_delay
+        return delay","bandwidths are inaccurate, as we don't account for parallel transfers here,","Summary: This function calculates the transmission delay between two endpoints based on their bandwidth and latency. It takes into account the base latencies of both endpoints, as well as any additional delay caused by the length of the transmitted packet.",8.614911585158347e-232,0.044444440750617584,0.14388489208633096,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def write_async(self, psd_data_or_future, time_start, time_stop, samples):
+        """"""Write PSD of one frequncy hop (asynchronously in another thread)""""""
+        return self._executor.submit(self.write, psd_data_or_future, time_start, time_stop, samples)","Write PSD of one frequncy hop (asynchronously in another thread),","This code snippet defines an asynchronous function `write_async` that writes the power spectral density (PSD) of one frequency hop to a file asynchronously using a separate thread. The function takes four arguments:
+     
+        1. `psd_data_or_future`: A PSD data object or a future containing the PSD data.
+        2. `time_start`: The start time of the PSD calculation.
+        3. `time_stop`: The end time of the PSD calculation.
+        4. `samples`: The number of samples in the PSD calculation.
+         
+     The `write_async` function uses the `Executor` class from the `concurrent.futures` module to submit a new task for writing the PSD data to a file asynchronously. The `write` method is executed on a different thread using the `submit` method of the `Executor` instance.",2.084558290783681e-155,0.12195121737061276,0.14634146341463414,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def database_forwards(self, app_label, schema_editor, from_state, to_state):
+        """"""Use schema_editor to apply any forward changes.""""""
+        self.truncate(app_label, schema_editor, self.truncate_forwards)","Use schema_editor to apply any forward changes.,","This function provides database migrations for Django applications. The first argument is the application label, which identifies the specific application being migrated. The second argument is a SchemaEditor object, which manages the database operations during migration. Finally, from_state and to_state are states that represent the previous version of the database and the current version of the database, respectively.
+
+The function truncates the data tables in the database by using the truncate() method of the SchemaEditor object and passing in the truncation instructions as specified by the truncate_forwards variable.",0,0.0,0.033112582781456956,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def database_backwards(self, app_label, schema_editor, from_state, to_state):
+        """"""Use schema_editor to apply any reverse changes.""""""
+        self.truncate(app_label, schema_editor, self.truncate_backwards)","Use schema_editor to apply any reverse changes.,","This function is part of Django's migration system. It is called when running migrations backwards (e.g., rolling back a migration). Its main goal is to truncate all tables associated with the specified application label using `schema_editor` provided by Django.
+
+The function first calls `truncate()` method on itself with three arguments: the application label, the schema editor, and an internal attribute called `truncate_backwards`. This attribute contains information about which tables need to be truncated. After that, the function applies any reverse changes using the schema editor.",2.135639655544596e-155,0.12820512636423406,0.30135135135135144,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def recv_method(self, method, params, id_, randomSeed=None):
+        """"""DDP method handler.""""""
+        if randomSeed is not None:
+            this.random_streams.random_seed = randomSeed
+            this.alea_random = alea.Alea(randomSeed)
+        self.api.method(method, params, id_)
+        self.reply('updated', methods=[id_])","DDP method handler.,","This code defines a `recv_method` function that handles DDP (Distributed Denial of Service) method calls. It takes five parameters: `self`, `method`, `params`, `id_`, and an optional `randomSeed`. The function uses the `this.random_streams.random_seed` attribute to set the random seed for generating random numbers, and initializes an instance of the `alea.Alea` class with the provided random seed. Then, it passes the `method`, `params`, and `id_` arguments to the `api.method()` function call, which sends the method request to the server. Finally, it replies with an 'updated' message containing the ID of the method call.",7.014641405009776e-232,0.056338027105733005,0.08474576271186442,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def translate(term=None, phrase=None, api_key=GIPHY_PUBLIC_KEY, strict=False,
+              rating=None):
+    """"""
+    Shorthand for creating a Giphy api wrapper with the given api key
+    and then calling the translate method.
+    """"""
+    return Giphy(api_key=api_key, strict=strict).translate(
+        term=term, phrase=phrase, rating=rating)","Shorthand for creating a Giphy api wrapper with the given api key
+    and then calling the translate method.,","This function defines a shorthand for creating a giphy API wrapper with the given API key and then calling the translate() method on that instance. It takes five parameters: term, phrase, api_key, strict, and rating.",0.19832220630588182,0.4999999954253473,0.8095058692893401,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def upload(tags, file_path, username=None, api_key=GIPHY_PUBLIC_KEY,
+           strict=False):
+    """"""
+    Shorthand for creating a Giphy api wrapper with the given api key
+    and then calling the upload method.
+    """"""
+    return Giphy(api_key=api_key, strict=strict).upload(
+        tags, file_path, username)","Shorthand for creating a Giphy api wrapper with the given api key
+    and then calling the upload method.,","This Python function called ""upload"" allows users to upload files to Giphy using an API key. It accepts four arguments, including tags, file_path, username (optional), and api_key (defaults to GIPHY_PUBLIC_KEY). It returns an object representing the uploaded file.",1.0377133938315695e-231,0.15686274065359493,0.15,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def dump(u, from_date, with_json=True, latest_only=False, **kwargs):
+    """"""Dump the UserEXt objects as a list of dictionaries.
+
+    :param u: UserEXT to be dumped.
+    :type u: `invenio_accounts.models.UserEXT [Invenio2.x]`
+    :returns: User serialized to dictionary.
+    :rtype: dict
+    """"""
+    return dict(id=u.id, method=u.method, id_user=u.id_user)","Dump the UserEXt objects as a list of dictionaries.
+
+    :param u: UserEXT to be dumped.
+    :type u: `invenio_accounts.models.UserEXT [Invenio2.x]`
+    :returns: User serialized to dictionary.
+    :rtype: dict,","The provided function named 'dump' takes several inputs including an object 'u', a date, and some boolean flags. Based on those inputs, it converts the user object into a list of dictionaries, where each dictionary contains three keys: id, method, and id_user. The overall goal of this function seems to be to take an input UserEXT object and convert it into a more general dictionary format that can be easily serialized and transmitted over a network.",1.0924470720893644e-78,0.18823528987128038,0.1774193548387097,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def write_reports(self, relative_path, suite_name, reports,
+                      package_name=None):
+        """"""write the collection of reports to the given path""""""
+
+        dest_path = self.reserve_file(relative_path)
+        with open(dest_path, 'wb') as outf:
+            outf.write(toxml(reports, suite_name, package_name=package_name))
+        return dest_path","write the collection of reports to the given path,","1. This function writes a collection of reports to a specified location on disk. It takes five arguments: `relative_path`, `suite_name`, `reports`, and `package_name`. The `relative_path` argument specifies the directory where the report files will be saved, while the `suite_name` argument specifies the name of the test suite that generated the reports. The `reports` argument is a list of dictionaries containing the test results, and the `package_name` argument is an optional string that can be used to specify the package name for the test suites.
+2. The function first reserves a file using the `reserve_file()` method, which creates a new temporary file in the specified directory. Then, it opens the file in binary mode (`'wb'` flag) and writes the contents of the `reports` dictionary to it using the `toxml()` method. Finally, it closes the file and returns the full path of the created file",0.017311421974433472,0.10752688014799401,0.15625000000000003,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def pm(client, event, channel, nick, rest):
+    'Arggh matey'
+    if rest:
+        rest = rest.strip()
+        Karma.store.change(rest, 2)
+        rcpt = rest
+    else:
+        rcpt = channel
+
+    if random.random() > 0.95:
+        return f""Arrggh ye be doin' great, grand work, {rcpt}!""
+    return f""Arrggh ye be doin' good work, {rcpt}!""","Arggh matey,","This Python function named ""pm"" takes five arguments: client, event, channel, nick, and rest. It appears to be a part of an IRC bot that responds with a message when someone sends a private message (PM) to the bot.
+
+The primary purpose of this function seems to be to increase the karma score for a user by 2 points whenever they send a PM to the bot, regardless of whether the PM contains text or not. If the PM contains text, the function will change the karma score for that user to 2 points more than their current score. Otherwise, the function will only change the karma score for the recipient of the PM.",0,0.0,0.0,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def lm(client, event, channel, nick, rest):
+    'Rico Suave'
+    if rest:
+        rest = rest.strip()
+        Karma.store.change(rest, 2)
+        rcpt = rest
+    else:
+        rcpt = channel
+    return f'¡Estás haciendo un buen trabajo, {rcpt}!'","Rico Suave,","This Python function `lm()` appears to serve as a command for a chatbot system. It takes five arguments as input: `client`, `event`, `channel`, `nick`, and `rest`. The function first checks if there is any text following the command, called ""rest,"" which will be passed on to the main logic of the program. If there is no rest text, it sets `rcpt` equal to `channel`. Otherwise, it strips off white space from both ends of `rest` and adds 2 to the karma score associated with the name mentioned in the message using the `Karma.store.change()` method before assigning the variable `rcpt` to the striped `rest` value. Finally, the function returns a string of the form ""You're doing great work, <name>!"" where `<name>` is either the user who entered the command or the channel they sent the command to depending on whether the command was entered in private message or public channel.",0,0.0,0.0,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def fm(client, event, channel, nick, rest):
+    'pmxbot parle français'
+    if rest:
+        rest = rest.strip()
+        Karma.store.change(rest, 2)
+        rcpt = rest
+    else:
+        rcpt = channel
+    return f'Vous bossez bien, {rcpt}!'","pmxbot parle français,","This code defines a function named `fm` that takes five parameters - `client`, `event`, `channel`, `nick`, and `rest`. It returns a string containing ""You work well, "" followed by either the parameter `rcpt` or the value ""channel"" depending on whether the variable `rest` is passed as an argument or not. If the variable `rest` is passed as an argument, its value is stored in the `Karma` object's store using the method `change()` with a incremental value of 2.",0,0.0,0.0,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def zorsupas(client, event, channel, nick, rest):
+    'Zor supas! — !زۆر سوپاس'
+    if rest:
+        rest = rest.strip()
+        Karma.store.change(rest, 1)
+        rcpt = rest
+    else:
+        rcpt = channel
+    return (
+        f'Zor supas {rcpt}, to zor zor barezi! —'
+        ' زۆر سوپاس، تۆ زۆر زۆر به‌ره‌زی'
+    )","Zor supas! — !زۆر سوپاس,","This is a Python function named `zorsupas`. It takes five parameters: `client`, `event`, `channel`, `nick`, and `rest`. The function defines a chatbot command called ""Zor Supas"" for an IRC network. When someone types `/zorsupas` followed by a name or phrase, the bot will respond with a message that includes the person's name and a wish for them. The response is stored in the `Karma` class's `store` attribute.",0,0.0,0.0,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def danke(client, event, channel, nick, rest):
+    'Danke schön!'
+    if rest:
+        rest = rest.strip()
+        Karma.store.change(rest, 1)
+        rcpt = rest
+    else:
+        rcpt = channel
+    return f'Danke schön, {rcpt}! Danke schön!'","Danke schön!,","This function `danke` accepts five parameters, including client, event, channel, nick, and rest, which it uses to change the value of a variable called ""karma"" and return a string containing ""Danke schön!"" followed by the name of the person being thanked.",0,0.0,0.0,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def _append_action(self, option, opt_unused, value_unused, parser):
+        """"""Callback for an option that adds to the `actions` list.""""""
+        parser.values.actions.append(option.action_code)","Callback for an option that adds to the `actions` list.,","This Python function `_append_action` is part of the `argparse` module in Python. It serves as a callback when an argument (option) is passed into the program. Specifically, this function appends the `action_code` property of the provided `optioin` object to the `parser.value.actions` list. The `action_code` refers to the type of action performed by the option (e.g., printing help text, adding an argument value, etc.).
+
+The primary purpose and functionality of this function is to provide a way to add custom actions to the `argparse` command-line interface (CLI). When a user passes an argument into the program using the `-a` flag, for example, the `argparse` library will call the `_append_action` function with the appropriate arguments, allowing the developer to specify exactly what happens when this argument is encountered. By default, the `argparse` library provides a number of built-in options and actions, such as displaying help text (`--help`) or setting a variable (`-v`). However, developers can extend this functionality by writing their own custom actions.",1.7552116553749679e-155,0.08403361176753056,0.1388888888888889,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def broadcast(client, sender, msg_name, dest_name=None, block=None):
+    """"""broadcast a message from one engine to all others.""""""
+    dest_name = msg_name if dest_name is None else dest_name
+    client[sender].execute('com.publish(%s)'%msg_name, block=None)
+    targets = client.ids
+    targets.remove(sender)
+    return client[targets].execute('%s=com.consume()'%dest_name, block=None)","broadcast a message from one engine to all others.,","This function broadcasts a message from one engine to all other engines. It takes five parameters: client, sender, msg_name, dest_name, and block.
+
+The first line assigns the name of the destination engine to either the value passed as a parameter or the same as the name of the message being sent (which is determined by msg_name).
+
+In the second line, client[sender].execute sends a 'publish' command to the engine identified by the sender variable, passing the name of the message that was passed as an argument.
+
+In the third line, a list of IDs for all available engines is generated using client.ids.
+
+The fourth line removes the ID of the current engine (specified by the sender variable) from this list.
+
+Finally, the fifth line uses the remaining elements in the target list to execute a 'consume' command on each of the remaining engines, storing the",0.03778055425231702,0.14285714102457311,0.17777777777777778,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def set_attr_from_config_option(self, cp, attr, where, type_=''):
+        """"""Set an attribute on self if it exists in the ConfigParser.""""""
+        section, option = where.split("":"")
+        if cp.has_option(section, option):
+            method = getattr(cp, 'get'+type_)
+            setattr(self, attr, method(section, option))","Set an attribute on self if it exists in the ConfigParser.,","This function sets an attribute `self` from a configuration option obtained from a `ConfigParser`. If the configuration option exists, the attribute is set with the value returned by calling the appropriate `get<Type>` method (e.g., `getint`, `getfloat`, etc.) on the `ConfigParser` object `cp`. The section and option names are specified as strings in `where`, separated by a colon.",2.9675564985017037e-155,0.20338982726802646,0.25641025641025644,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def connect(com, peers, tree, pub_url, root_id):
+    """"""this function will be called on the engines""""""
+    com.connect(peers, tree, pub_url, root_id)","this function will be called on the engines,","This function serves as an entry point for connecting nodes in a peer-to-peer network. It receives four arguments: com, peers, tree, and root_id. The function first uses the 'com' argument to call the 'connect()' method with three other arguments; that is, the 'peers', 'tree', and 'pub_url' arguments. Finally, it sets the value of the root_id variable equal to the id attribute of the first element in the 'root_id' argument.",7.517155770510923e-232,0.06451612678459945,0.17730496453900713,,,
+"
+    You are a professional Python code analyzer and summary generator. Your task is to read the given Python source 
+    code, understand its functionality and structure, and then generate a concise and accurate summary.
+
+    Please follow these guidelines:    
+    1. Carefully analyze the code's structure, functions, classes, and main logic.
+    2. Identify the primary purpose and functionality of the code.
+    3. Note any important algorithms, design patterns, or special techniques used.
+    4. Summarize the core functionality of the code in concise language.
+    5. The summary should be one to two sentences, not exceeding 50 words.
+    6. Use technically accurate terms, but avoid overly complex expressions.
+    7. Don't explain how the code works, just state what it does.
+","def insert_func(self, index, func, *args, **kwargs):
+        '''
+        insert func with given arguments and keywords.
+        '''
+        wraped_func = partial(func, *args, **kwargs)
+        self.insert(index, wraped_func)","insert func with given arguments and keywords.,","The provided function `insert_func()` inserts a function into another function at a specific index. It takes three parameters: `index`, which specifies where to insert the new function; `func`, which is the function being inserted; and `*args` and `**kwargs`, which specify the positional and keyword arguments to pass when calling the inserted function.
+
+The function first wraps the input function `func` using the `partial` function from the built-in module `functools`. This creates a partially applied function that can be called with fewer arguments than the original function. Then, it inserts the wrapped function at the specified index in the current function object (which presumably has a list of other functions as its members).",7.919883909890055e-232,0.0930232541265549,0.1142857142857143,,,
